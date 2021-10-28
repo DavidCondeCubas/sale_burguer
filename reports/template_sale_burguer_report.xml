@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_sale_order_burguer" name="Sale Order Burguer Report">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="template">
+                    <t t-foreach="template.product_variant_ids" t-as="product">
+                        <h1 class="w-100 text-center">BURGUER REPORT</h1>
+                        <table class="table">  
+                            <tr>
+                                <th >Is a Burguer?</th>
+                                <td><input type="checkbox" t-att-checked="product.is_a_burguer" /></td>
+                            </tr>
+                            <tr>
+                                <th >Size</th>
+                                <td><span t-esc="product.size"/></td>
+                            </tr>
+                            <tr>
+                                <th >Meat</th>
+                                <td><span t-esc="product.meat"/></td>
+                            </tr>
+                            <tr>
+                                <th >Is a Limit Edition?</th>
+                                <td><input type="checkbox" t-att-checked="product.limited_edition" /></td>
+                            </tr>
+                            <tr>
+                                <th >Is Vegan?</th>
+                                <td><input type="checkbox" t-att-checked="product.is_vegan"/></td>
+                            </tr>
+                            <tr>
+                                <th >Is Gluten Free?</th>
+                                <td><input type="checkbox" t-att-checked="product.gluten_free"/></td>
+                            </tr>
+                            <tr>
+                                <th>Author</th>
+                                <td><span t-esc="product.author.name"/></td>
+                            </tr>
+                            <tr>
+                                <th >Slogan</th>
+                                <td><span t-esc="product.slogan"/></td>
+                            </tr>
+                            <tr>
+                                <th>Rating</th>
+                                <td><span t-esc="product.rating"/></td>
+                            </tr>
+                            <tr>
+                                <th >Popularity</th>
+                                <td><span t-esc="product.popularity"/></td>
+                            </tr>
+                           
+                        </table>
+
+                        <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                            <tr>
+                                <td class="text-center align-middle" style="height: 6rem;">
+                                    <t t-if="product.barcode">
+                                        <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height:4rem;"/>
+                                        <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height:4rem;"/>
+                                        <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height:4rem"/>
+                                        <span t-field="product.barcode"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="text-muted">No barcode available</span>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

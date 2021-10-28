@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="product_template_burguer_form" model="ir.ui.view">
+            <field name="name">product.burguer.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title'][1]/div[1]" position="inside">
+                    <div>
+                        <field name="is_a_burguer"/>
+                        <label for="is_a_burguer"/>
+                    </div>
+                </xpath>
+                <xpath expr="//notebook[1]" position="inside">
+                    <page string="Burguer details" name="burguer_details" attrs="{'invisible': [('is_a_burguer','=',False)]}">
+                        <group>
+                            <group>
+                                <field name="author" options="{'no_create': True}"/>
+                                <field name="slogan"/>
+                                <field name="rating"/>
+                                <field name="popularity"/>
+                            </group>
+                            <group>
+                                <field name="size" attrs="{'required': [('is_a_burguer', '=', True)]}"/>
+                                <field name="meat" attrs="{'required': [('is_a_burguer', '=', True)]}"/>
+                                <field name="limited_edition"/>
+                                <field name="is_vegan"/>
+                                <field name="gluten_free"/>
+                            </group>
+                        </group>
+
+                    </page>
+                </xpath>
+                <xpath expr="//notebook[1]" position="inside">
+                    <page string="Extra Images" name="extra_images">
+                        <group>
+                            <field name="extra_images_ids"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
